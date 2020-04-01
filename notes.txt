@@ -1,0 +1,497 @@
+
+Type script :
+
+scales javascript?
+
+Scaling means expanding features of javascript.
+
+Object based Pardigms
+
+  Object oriented concepts
+      Typing : Static typing / Strong typing
+
+static typing
+
+int a =10;
+
+a ="hello";
+
+var i =90;
+
+i ="hello"
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Type system
+
+1.primitive
+ number,string,booleans
+
+2.Reference types / complex types/ object types
+
+Employee,Customer.
+
+
+Customer -- must have a  Order only.
+
+
+class  Customer{
+ 
+  private Order order;
+    Customer(Order order){
+          this.order = order
+   }
+ 
+}
+
+new Customer(new Order())
+new Customer(new Product());
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+What if javascript has two things
+
+
+1.Strong typing
+
+2.Object Oriented Programming principles
+
+You can use java script in enteriprise computing
+
+
+TS is project created by ms to add the above features on js.
+
+
+IS TS Separate pl.
+
+ No!.
+
+TS is just remake of javascript with strong typing  , oop.
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+TS =  ES 6 + ES 5 + Additional features
+
+
+Does TS has runtime?
+
+No!
+
+TS is only for source code , not for exection,.
+
+Every TS programm finally becomes javascript.
+
+
+Source code (ts) -------------------compilation---------------->Javascript---run on host.(browser/node)
+
+
+TS application:
+
+Project setup :
+
+1.node js
+2.vs code
+3.create project with package.json
+4.install type script compiler
+
+
+project config :  tsconfig.json
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+TS : TYPE system:
+
+object oriented Programming
+
+ts compiler by default compiles ts code into ES 5 .
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+OO :
+
+1.classes
+   -instance variables,methods,contructors
+object creations
+   constructor parameters
+
+ts :
+2.interfaces
+3.abstract classes
+4.encapsulation
+
+
+////////////////////////////////////////////////////////////////////////////////////
+
+state initzation :
+
+1.hard coded
+2.after object creation
+3.constructor parameters
+
+
+encapsulation:
+
+What is encasulation ?
+
+ To protect code sharing.
+
+ts offers three ways you can protect code.
+
+code could be class,instance variable,method,constructor....
+
+private :
+  instance vaiables, instance methods
+public
+   instance vaiables, instance methods
+protected
+  instance vaiables, instance methods
+
+private : class bounday,
+public : across the classes
+protected ; within two classes , but it should be in hiertance
+
+Note: by default all code is public .
+
+keywords, private
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+code refactoring:
+
+with encapsulation modifier , we can reduce  lot of declaration code.
+
+how to declare instance variable, initalize them
+
+1.inside class
+2.inside constructor
+
+class Customer {
+    //instance variables : 
+    private id: number
+    private name: string;
+    private isActive: boolean;
+    constructor(id: number = 1, name: string = 'defaultName', isActive?: boolean) {
+        this.id = id;
+        this.name = name;
+        this.isActive = isActive;
+    }
+}
+
+local variables: variables inside function/constructor ,or arg
+constructor(id: number = 1, name: string = 'defaultName', isActive?: boolean) {
+       
+    }
+the id,name are local variables
+
+ "ts offers feature , local variables can be converted into instance variables by adding encp modiferes(private/public) "
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Hierachy: has-a, is-a
+
+
+HAS-A : dependency injection
+
+IS:A
+//inheritance:
+/**
+ * Base class could be
+ * 1.concrete class
+ * 2.interfaces
+ * 3.abstract class
+ */
+//
+class Account {
+    constructor(public accNo?: number) {
+        console.log('Account class')
+    }
+    deposit(): number {
+        return 10;
+    }
+}
+class SavingsAccount extends Account {
+    constructor(id: number) {
+        super(id);
+        console.log('Savings account!')
+    }
+    //method redefinging (overriding)
+    deposit(): number {
+        return 100 * super.deposit();
+    }
+}
+let sb = new SavingsAccount(12);
+console.log(sb.accNo)
+console.log(sb.deposit())
+////////////////////////////////////////////////////////////////////////////////////
+//interfaces : generic inheritance
+interface Runnable {
+    //just method declaration
+    run(): void
+}
+class Lion implements Runnable {
+    //you must provide implementation
+    run(): void {
+        console.log('Lion runs!')
+    }
+}
+class Wheel implements Runnable {
+    run(): void {
+        console.log('Wheel runs!')
+    }
+}
+let lion = new Lion()
+let wheel = new Wheel();
+
+lion.run()
+wheel.run();
+////////////////////////////////////////
+//Abstract classes: similar to interfaces but which is having common behaviour
+//for same family of child classes.
+//abstract classes = genric  + common implemenation
+
+abstract class Animal {
+    abstract eat(): void;
+    //concret
+    saveAnimals(): string {
+        return 'Save Animals from Hunters!'
+    }
+}
+class Tiger extends Animal {
+    eat() {
+        console.log('Tiger eats')
+    }
+}
+let tiger = new Tiger();
+tiger.eat();
+console.log(tiger.saveAnimals());
+
+class Elephant extends Animal {
+    eat() {
+        console.log('Elephant eats')
+    }
+}
+let ele = new Elephant();
+ele.eat();
+console.log(ele.saveAnimals());
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Reference types : object types
+/**
+ * 1.class can act as type of object : 
+ * 2.interface can act as type of object
+ * 3.type keyword can be used for object types
+ *  * 
+ */
+
+//primitive
+let a: number = 1
+
+//class as type 
+// class Customer {
+//     id: number;
+//     name: string;
+// }
+//interface as type
+// interface Customer {
+//     id: number;
+//     name: string;
+// }
+//type keyword
+type Customer = {
+    id: number;
+    name: string;
+    city?: string;
+}
+//literal objects
+let customer: Customer = {
+    id: 1,
+    name: 'Subramanian',
+}
+///////////
+
+class Employee {
+    constructor(public id: number = 2, public name: string = 'default') { }
+}
+
+
+// let emp: Employee = new Employee();
+// emp.id = 10;
+// emp.name = 'Subramanian';
+// emp.salary = 900;
+
+//Type inference
+// let emp = new Employee();
+// emp.id = 10;
+// emp.name = 'Subramanian';
+// emp.salary = 900;
+
+type EmployeeType = {
+    id: number;
+    name: string;
+    salary: number;
+}
+
+let emp = new Employee() as EmployeeType;
+emp.id = 10;
+emp.name = 'Subramanian';
+emp.salary = 900;
+
+
+let emp1 = new Employee() as any;
+emp1.id = 10;
+emp1.name = 'Subramanian';
+emp1.salary = 900;
+
+Arrays Types,Generics
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Decorators:
+ meta  Programming
+
+Annoations in other languages.
+..........................................................
+
+
+@Entity  
+class Employee{
+   
+}
+
+ES 7 spec added decorators(annotation) in javascript
+
+Types of decorator
+
+1.on class :
+  class level decorator
+2.method 
+   method level decorator
+3.on variable
+   field level decorator.
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Code :
+
+1.decorator code
+
+ decorator is just js function
+@ symbol to bind decorator
+
+
+2.application code which uses decorators
+
+//Decorators
+
+//decorator code
+/**
+ * 1.function must take arg: target (on which the decorator has been attached)
+ */
+
+//Level 1: declaration
+// function Course(target: any) {
+//     console.log('Course decorator is used!')
+// }
+//Level 2 : add decorator logic
+//Get the Student Prototype Object, add courseName property, and set the value
+// function Course(target: any) {
+//     //Logic
+//     Object.defineProperty(target.prototype, "courseName", {
+//         value: 'Angular with Type script'
+//     });
+// }
+
+// //app code
+// @Course
+// class Student {
+//     constructor(public firstName?: string, public lastName?: string) { }
+// }
+// let student = new Student("Subramanian", "Murugan") as any;
+// console.log(`${student.firstName} ${student.lastName} is learning ${student.courseName}`);
+
+//use case 2 : course information as input
+
+
+// function Course(target: any) {
+//     //Logic
+//     Object.defineProperty(target.prototype, "courseName", {
+//         value: 'Angular with Type script'
+//     });
+// }
+
+//Level 3 : add decorator logic,with input
+type CourseType = {
+    code: string;
+    courseName: string;
+}
+
+function Course(courseinfo: any) {
+    //target should be inside another function
+    return function (target: any) {
+        //Logic
+        Object.defineProperty(target.prototype, 'courseinfo', { value: courseinfo })
+    }
+
+}
+
+function Logger(config: any) {
+    return function (target: any) {
+        console.log("\x1b[44m%s\x1b[0m", `${config.type} - ${config.message} on ${new Date()}`);
+    }
+}
+
+//method decorator
+function extendAble(value: any) {
+    return function (target: any, prop: any, propdescriptor: PropertyDescriptor) {
+        console.log(target);
+        console.log(prop);
+        console.log(propdescriptor);
+        propdescriptor.writable = value;
+    }
+}
+
+//field decorator
+function Input(label: string) {
+    return function (target: any, key: string) {
+        console.log(target)
+        console.log(key);
+        Object.defineProperty(target, key, {
+            configurable: false,
+            get: () => label
+        });
+    }
+}
+
+
+
+@Course({ name: 'Node js' })
+@Logger({
+    message: 'Have latest Version',
+    type: 'Warning'
+})
+class Student {
+
+    @Input('Sapient Learning Division')
+    instituteName: string;
+
+    constructor(public firstName?: string, public lastName?: string) { }
+    //cost of this is fixed
+    @extendAble(false)
+    calculateCost() {
+        return 10000;
+    }
+}
+let student = new Student("Subramanian", "Murugan") as any;
+console.log(` ${student.instituteName} ${student.firstName} ${student.lastName} is learning ${student.courseinfo.name}`);
+
+student.calculateCost = function () {
+    return 15000;
+}
+
+console.log(`Course cost ${student.calculateCost()}`);
+
+
+
+
+
+
+
